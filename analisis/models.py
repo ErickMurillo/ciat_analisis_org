@@ -35,11 +35,6 @@ class Pregunta_1(models.Model):
 	def __unicode__(self):
 		return self.proyecto
 
-	def save(self, *args, **kwargs):
-		if not  self.id:
-			self.slug = slugify(self.nombre)
-		super(Entrevista, self).save(*args, **kwargs)
-
 	class Meta:
 		verbose_name = 'pregunta 1'
 		verbose_name_plural = 'pregunta 1'
