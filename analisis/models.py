@@ -73,12 +73,17 @@ class Pregunta_4(models.Model):
 		verbose_name = 'pregunta 4'
 		verbose_name_plural = 'pregunta 4'
 
+PRIORITIZADO_CHOICES = (
+	(1,'Si'),
+	(2,'No')
+	)
+
 class Pregunta_5a(models.Model):
 	innovacion = models.CharField(max_length=250, verbose_name='Innovación(es)')
 	ubicacion = models.ManyToManyField(Ubicacion)
 	socio = models.ManyToManyField(Socio)
 	tema = models.ManyToManyField(Tema)
-	prioritizado = models.ForeignKey(Prioritizado)
+	prioritizado = models.IntegerField(choices=PRIORITIZADO_CHOICES)
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -86,10 +91,10 @@ class Pregunta_5a(models.Model):
 		verbose_name_plural = 'pregunta 5a'
 
 class Pregunta_5c(models.Model):
-	organizacion_1 = models.ForeignKey(Organizacion,related_name='organizacion_1',verbose_name='Organizacion')
-	papel_1 = models.ManyToManyField(Papel,related_name='papel_1',verbose_name='Papel')
-	organizacion_2 = models.ForeignKey(Organizacion,related_name='organizacion_2',verbose_name='Organizacion')
-	papel_2 = models.ManyToManyField(Papel,related_name='papel_2',verbose_name='Papel')
+	organizacion_1 = models.ForeignKey(Organizacion,related_name='organizacion_1_5c',verbose_name='Organizacion')
+	papel_1 = models.ManyToManyField(Papel,related_name='papel_1_5c',verbose_name='Papel')
+	organizacion_2 = models.ForeignKey(Organizacion,related_name='organizacion_2_5c',verbose_name='Organizacion')
+	papel_2 = models.ManyToManyField(Papel,related_name='papel_2_5c',verbose_name='Papel')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -122,7 +127,7 @@ class Pregunta_6a(models.Model):
 	innovacion = models.CharField(max_length=200, verbose_name='Innovación(es)')
 	ubicacion =  models.ManyToManyField(Ubicacion)
 	tema = models.ManyToManyField(Tema)
-	prioritizado = models.ForeignKey(Prioritizado)
+	prioritizado = models.IntegerField(choices=PRIORITIZADO_CHOICES)
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -140,11 +145,12 @@ class Pregunta_6c(models.Model):
 		verbose_name = 'pregunta 6c'
 		verbose_name_plural = 'pregunta 6c'
 
+
 class Pregunta_6d(models.Model):
-	organizacion_1_6d = models.ForeignKey(Organizacion,related_name='organizacion_1_6d',verbose_name='Organizacion')
-	papel_1_6d = models.ManyToManyField(Papel,related_name='papel_1_6d',verbose_name='Papel')
-	organizacion_2_6d = models.ForeignKey(Organizacion,related_name='organizacion_2_6d',verbose_name='Organizacion')
-	papel_2_6d = models.ManyToManyField(Papel,related_name='papel_2_6d',verbose_name='Papel')
+	innovacion_1 = models.CharField(max_length=200,verbose_name='Innovación 1')
+	categorias_1 = models.ManyToManyField(Categoria,related_name='categorias_1_6d',verbose_name='Categorias')
+	innovacion_2 = models.CharField(max_length=200,verbose_name='Innovación 2')
+	categorias_2 = models.ManyToManyField(Categoria,related_name='categorias_2_6d',verbose_name='Categorias')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -203,7 +209,7 @@ class Pregunta_8(models.Model):
 	territorio = models.CharField(max_length=50,choices=TERRITORIO_CHOICES,verbose_name='Dentro o Afuera del Territorio')
 	periodo = models.CharField(max_length=50,choices=PERIODO_CHOICES,verbose_name='Periodo de relación')
 	profundidad = models.CharField(max_length=50,choices=PROFUNDIDAD_CHOICES,verbose_name='Profundidad de relación')
-	tema = models.ManyToManyField(Tema, verbose_name='Razón o temas de la relacion')
+	tema = models.ManyToManyField(Tema_Relacion, verbose_name='Razón o temas de la relacion')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -244,8 +250,8 @@ class Pregunta_9(models.Model):
 	tema = models.IntegerField(choices=TEMA_CHOICES)
 	prioridad = models.CharField(max_length=50,choices=PRIORIDAD_CHOICES,verbose_name='Prioridad Organizacional')
 	papel = models.CharField(max_length=50,choices=PAPEL_CHOICES,verbose_name='Papel de la organización en el territorio')
-	conocimiento = models.IntegerField(choices=AUTO_EVALUACION_CHOICES)
-	experiencia = models.IntegerField(choices=AUTO_EVALUACION_CHOICES)
+	conocimiento = models.IntegerField(choices=AUTO_EVALUACION_CHOICES,help_text='Escala de valor: 1 (debilidad) hasta 5 (fuerte)')
+	experiencia = models.IntegerField(choices=AUTO_EVALUACION_CHOICES,help_text='Escala de valor: 1 (debilidad) hasta 5 (fuerte)')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:

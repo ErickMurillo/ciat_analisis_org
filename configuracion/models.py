@@ -103,7 +103,7 @@ class Socio(models.Model):
 		return self.socio
 
 class Tema(models.Model):
-	tema = models.CharField(max_length=100)
+	tema = models.CharField(max_length=200)
 
 	def __unicode__(self):
 		return self.tema
@@ -123,12 +123,6 @@ class Grupo_Beneficiario(models.Model):
 	class Meta:
 		verbose_name = 'Grupo Beneficiario'
 		verbose_name_plural = 'Grupos Beneficiarios'
-
-class Prioritizado(models.Model):
-	nombre = models.CharField(max_length=250)
-
-	def __unicode__(self):
-		return self.nombre
 
 class Papel(models.Model):
 	nombre = models.CharField(max_length=100)
@@ -194,6 +188,16 @@ class Seleccion_7b(models.Model):
 
 
 class Tipo_Estudio(models.Model):
+	nombre = models.CharField(max_length=100)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = 'Tipo de estudio'
+		verbose_name_plural = 'Tipos de estudios'
+
+class Tema_Relacion(models.Model):
 	nombre = models.CharField(max_length=100)
 
 	def __unicode__(self):

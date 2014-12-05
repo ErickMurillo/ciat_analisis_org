@@ -32,7 +32,7 @@ class Pregunta_5a_Inline(admin.StackedInline):
 
 class Pregunta_5c_Inline(admin.StackedInline):
 	model = Pregunta_5c
-	max_num = 0
+	max_num = 1
 	can_delete = False
 	fieldsets = [
 		('Innovación 1', {'fields' : ('organizacion_1','papel_1')}),
@@ -66,6 +66,12 @@ class Pregunta_6c_Inline(admin.StackedInline):
 		('Innovación 1', {'fields' : ('organizacion_1_6c','papel_1_6c')}),
 		('Innovación 2', {'fields' : ('organizacion_2_6c','papel_2_6c')}),
 	]
+
+class Pregunta_6d_Inline(admin.TabularInline):
+	model = Pregunta_6d
+	max_num = 1
+	can_delete = False
+
 
 class Pregunta_6e_Inline(admin.StackedInline):
 	model = Pregunta_6e
@@ -113,8 +119,8 @@ class EntrevistaAdmin(admin.ModelAdmin):
 	]
 	inlines = [Pregunta_1_Inline, Pregunta_2_Inline, Pregunta_3_Inline, Pregunta_4_Inline, 
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,
-			   Pregunta_6a_Inline, Pregunta_6c_Inline,Pregunta_6e_Inline, Pregunta_7a_Inline,
-			   Pregunta_7b_Inline,Pregunta_8_Inline,Pregunta_9_Inline,Pregunta_11_Inline]
+			   Pregunta_6a_Inline, Pregunta_6c_Inline,Pregunta_6d_Inline,Pregunta_6e_Inline,
+			   Pregunta_7a_Inline,Pregunta_7b_Inline,Pregunta_8_Inline,Pregunta_9_Inline,Pregunta_11_Inline]
 
 admin.site.register(Entrevista,EntrevistaAdmin)
 
