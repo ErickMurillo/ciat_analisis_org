@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 import os
+from local_setting import *
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -29,6 +30,7 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
+
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
@@ -63,21 +65,6 @@ ROOT_URLCONF = 'ciat_analisis_org.urls'
 
 WSGI_APPLICATION = 'ciat_analisis_org.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.db',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -90,6 +77,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)
