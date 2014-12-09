@@ -49,7 +49,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'analisis',
     'configuracion',
+    'lugar',
     'smart_selects',
+
 )
 
 MIDDLEWARE_CLASSES = (

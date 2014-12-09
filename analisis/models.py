@@ -2,6 +2,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from configuracion.models  import *
+from lugar.models import *
 
 # Create your models here.
 
@@ -27,8 +28,8 @@ class Pregunta_1(models.Model):
 	proyecto = models.CharField(max_length=250, verbose_name='Proyecto(s) e iniciativa(s)')
 	estado = models.ForeignKey(Estado)
 	ubicacion = models.ManyToManyField(Ubicacion)
-	socio = models.ManyToManyField(Socio)
-	tema = models.ManyToManyField(Tema)
+	socio = models.ManyToManyField(Socio,verbose_name='Socios')
+	tema = models.ManyToManyField(Tema,verbose_name='Temas')
 	slug = models.SlugField(editable=False)
 	entrevistado = models.ForeignKey(Entrevista)
 
@@ -39,15 +40,17 @@ class Pregunta_1(models.Model):
 		verbose_name = 'pregunta 1'
 		verbose_name_plural = 'pregunta 1'
 
+PREGUNTA2_CHOICES = (
+    ('numero tecnicos','Numero de Tecnicos'),
+    ('numero promotores ','Numero de Promotores '),
+    ('numero invetigadores','Numero de Invetigadores'),
+    ('numero decisores','Numero de Decisores'),
+    )
+
 class Pregunta_2(models.Model):
-	tecnico_hombre = models.IntegerField(verbose_name='Numero de Tecnicos Hombres')
-	tecnico_mujer = models.IntegerField(verbose_name='Numero de Tecnicos Mujeres')
-	promotor_hombre = models.IntegerField(verbose_name='Numero de Promotores Hombres')
-	promotor_mujer = models.IntegerField(verbose_name='Numero de Promotores Mujeres')
-	investigador_hombre = models.IntegerField(verbose_name='Numero de Invetigadores Hombres')
-	investigador_mujer = models.IntegerField(verbose_name='Numero de Invetigadores Mujeres')
-	decisor_hombre = models.IntegerField(verbose_name='Numero de Decisores Hombres')
-	decisor_mujer = models.IntegerField(verbose_name='Numero de Decisores Mujeres')
+	seleccion = models.CharField(max_length=50,choices=PREGUNTA2_CHOICES)
+	hombre = models.IntegerField()
+	mujer = models.IntegerField()
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -56,7 +59,7 @@ class Pregunta_2(models.Model):
 
 
 class Pregunta_3(models.Model):
-	grupo = models.ManyToManyField(Grupo)
+	grupo = models.ManyToManyField(Grupo,verbose_name='Grupos')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -66,7 +69,7 @@ class Pregunta_3(models.Model):
 class Pregunta_4(models.Model):
 	impacto = models.CharField(max_length=250, verbose_name='Impacto(s)')
 	grupo_beneficiario = models.ManyToManyField(Grupo_Beneficiario,verbose_name='Grupos beneficiarios principales de este impacto')
-	tema = models.ManyToManyField(Tema)
+	tema = models.ManyToManyField(Tema,verbose_name='Temas')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -103,9 +106,9 @@ class Pregunta_5c(models.Model):
 
 class Pregunta_5d(models.Model):
 	innovacion_1 = models.CharField(max_length=200,verbose_name='Innovación 1')
-	categorias_1 = models.ManyToManyField(Categoria,related_name='categorias_1',verbose_name='Categorias')
+	categoria_1 = models.ManyToManyField(Categoria,related_name='categorias_1',verbose_name='Categorias')
 	innovacion_2 = models.CharField(max_length=200,verbose_name='Innovación 2')
-	categorias_2 = models.ManyToManyField(Categoria,related_name='categorias_2',verbose_name='Categorias')
+	categoria_2 = models.ManyToManyField(Categoria,related_name='categorias_2',verbose_name='Categorias')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -113,7 +116,7 @@ class Pregunta_5d(models.Model):
 		verbose_name_plural = 'pregunta 5d'
 
 class Pregunta_5e(models.Model):
-	fuentes_1 = models.CharField(max_length=200, verbose_name='Fuente de aprendizaje de Innovación 1')
+	fuente_1 = models.CharField(max_length=200, verbose_name='Fuente de aprendizaje de Innovación 1')
 	categoria_fuente_1 = models.ManyToManyField(Categoria_Fuente, related_name='categoria_fuente_1',verbose_name='Categoria de Fuente')
 	fuente_2 = models.CharField(max_length=200, verbose_name='Fuente de aprendizaje de Innovación 2')
 	categoria_fuente_2 = models.ManyToManyField(Categoria_Fuente, related_name='categoria_fuente_2',verbose_name='Categoria de Fuente')
@@ -148,9 +151,9 @@ class Pregunta_6c(models.Model):
 
 class Pregunta_6d(models.Model):
 	innovacion_1 = models.CharField(max_length=200,verbose_name='Innovación 1')
-	categorias_1 = models.ManyToManyField(Categoria,related_name='categorias_1_6d',verbose_name='Categorias')
+	categoria_1 = models.ManyToManyField(Categoria,related_name='categorias_1_6d',verbose_name='Categorias')
 	innovacion_2 = models.CharField(max_length=200,verbose_name='Innovación 2')
-	categorias_2 = models.ManyToManyField(Categoria,related_name='categorias_2_6d',verbose_name='Categorias')
+	categoria_2 = models.ManyToManyField(Categoria,related_name='categorias_2_6d',verbose_name='Categorias')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:

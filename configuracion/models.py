@@ -2,34 +2,9 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from smart_selects.db_fields import ChainedForeignKey
+from lugar.models import *
 
 # Create your models here.
-
-class Departamento(models.Model):
-	departamento  = models.CharField(max_length=50)
-	slug = models.SlugField(editable=False)
-
-	def __unicode__(self):
-		return self.departamento
-	
-	def save(self, *args, **kwargs):
-		if not  self.id:
-			self.slug = slugify(self.departamento)
-		super(Departamento, self).save(*args, **kwargs)
-
-
-class Municipio(models.Model):
-	municipio  = models.CharField(max_length=50)
-	departamento = models.ForeignKey(Departamento)
-	slug = models.SlugField(editable=False)
-
-	def __unicode__(self):
-		return self.municipio
-	
-	def save(self, *args, **kwargs):
-		if not  self.id:
-			self.slug = slugify(self.municipio)
-		super(Municipio, self).save(*args, **kwargs)
 
 class Status_Legal(models.Model):
 	nombre = models.CharField(max_length=200)
@@ -60,7 +35,6 @@ class Organizacion(models.Model):
 	numero_activistas = models.IntegerField(verbose_name='Numero de activistas o miembros')
 	direccion = models.CharField(max_length=200)
 	departamento = models.ForeignKey(Departamento)
-	#municipio = models.ForeignKey(Municipio)
 	municipio = ChainedForeignKey(
 								Municipio,
 	 							chained_field="departamento", 
@@ -96,6 +70,10 @@ class Ubicacion(models.Model):
 	def __unicode__(self):
 		return self.ubicacion
 
+	class Meta:
+		verbose_name = 'Ubicación'
+		verbose_name_plural = 'Ubicaciones'
+
 class Socio(models.Model):
 	socio = models.CharField(max_length=100)
 
@@ -129,6 +107,10 @@ class Papel(models.Model):
 
 	def __unicode__(self):
 		return self.nombre
+
+	class Meta:
+		verbose_name = 'Papel'
+		verbose_name_plural = 'Papeles'
 
 class Categoria(models.Model):
 	nombre = models.CharField(max_length=100)
@@ -204,5 +186,5 @@ class Tema_Relacion(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Tipo de estudio'
-		verbose_name_plural = 'Tipos de estudios'
+		verbose_name = 'Tipo de Relación'
+		verbose_name_plural = 'Tipos de Relación'
