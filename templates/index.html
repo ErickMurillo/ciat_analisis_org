@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{%load staticfiles%}
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Analisis Organizacional</title>
+</head>
+<body>
+	
+<div>
+	{% for sector in object_list%}
+		<h3>{{sector.nombre}}</h3>
+	{% endfor %}
+
+
+</div>
+
+<!-- <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> -->
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/highcharts.js' %}"></script>
+<script src="{% static 'js/exporting.js' %}"></script>
+
+
+<script>
+	$(function () {
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Browser market shares at a specific website, 2014'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+
+                ['Firefox',   45.0],
+                ['IE',       26.8],
+                ['Chrome', 12.8,],
+                ['Safari',    8.5],
+                ['Opera',     6.2],
+                ['Others',   0.7]
+            ]
+        }]
+    });
+});</script>
+
+</body>
+</html>
+
