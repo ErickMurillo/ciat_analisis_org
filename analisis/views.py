@@ -15,6 +15,21 @@ class IndexView(ListView):
 		for x in Sector.objects.all():
 			cont_org = Organizacion.objects.filter(sector=x).count()
 			sector[x.nombre] = cont_org
-		print sector
+		context['contador_sector'] = sector
+
+		tema = {}
+		for y in Tema.objects.all():
+			contador_pregunta1 = Pregunta_1.objects.filter(tema=y).count()
+			tema[y.tema] = contador_pregunta1
+		context['contador_tematica'] = tema
+		
+		prueba = {}
+		for i in Sector.objects.all():
+			conteo = Pregunta_1.objects.filter(entrevistado__organizacion__sector=i).count()
+			prueba[i.nombre] = conteo
+		context['proyectos'] = prueba
+			
+
 		return context
+
 		

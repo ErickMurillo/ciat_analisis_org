@@ -8,31 +8,74 @@
 </head>
 <body>
 	
-<div>
+<!-- <div>
 	{% for sector in object_list%}
 		<h3>{{sector.nombre}}</h3>
 	{% endfor %}
 
+	
+</div> -->
 
+
+<!--grafico 1 -->
+<div id="sector" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> 
+
+<!--tabla 1-->
+<div class="table">
+<table>
+	<tr>
+		<td>Organizational Group</td>
+		<td>Number of Projects/Initiatives</td>
+		<td>Median Value</td>
+	</tr>
+	{% for key,value in proyectos.items %}
+		<tr>
+			<td>{{key}}</td>
+			<td>{{value}}</td>
+			<td></td>
+		</tr>
+		{% endfor %}
+	</table>
 </div>
 
-<!-- <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> -->
+<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+<!--grafico 2 -->
+<div id="proyectos" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div> 
+
+
+<!-- <div class="table">
+<table>
+	<tr>
+		<td>Thematic Area</td>
+		<td>Number of Projects/Initiatives</td>
+	</tr>
+	{% for key,value in contador_tematica.items %}
+		<tr>
+			<td>{{key}}</td>
+			<td>{{value}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div> -->
+
 
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/highcharts.js' %}"></script>
 <script src="{% static 'js/exporting.js' %}"></script>
 
-
+<!-- +++++++++++++++++++++++++++++++++++++++ grafica 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 <script>
 	$(function () {
-    $('#container').highcharts({
+    $('#sector').highcharts({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: 1,//null,
             plotShadow: false
         },
         title: {
-            text: 'Browser market shares at a specific website, 2014'
+            text: '1. Distribution of Interview Participation by Group'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -54,13 +97,52 @@
             type: 'pie',
             name: 'Browser share',
             data: [
+					
+        {% for key,value in  contador_sector.items %}
+			['{{key}}', {{value}}],
+		{% endfor %}
+            ]
+        }]
+    });
+});</script>
 
-                ['Firefox',   45.0],
-                ['IE',       26.8],
-                ['Chrome', 12.8,],
-                ['Safari',    8.5],
-                ['Opera',     6.2],
-                ['Others',   0.7]
+<!-- +++++++++++++++++++++++++++++++++++++++ grafica 2 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+<script>
+	$(function () {
+    $('#proyectos').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: '2. Distribution of Projects by Organizational Type'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+					
+        {% for key,value in  proyectos.items %}
+			['{{key}}', {{value}}],
+		{% endfor %}
             ]
         }]
     });
