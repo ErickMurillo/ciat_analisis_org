@@ -136,7 +136,7 @@ class Pregunta_11_Inline(admin.TabularInline):
 
 class EntrevistaAdmin(admin.ModelAdmin):
 	fieldsets = [
-		('Información de la persona entrevistada', {'fields' : (('nombre','posicion'),('email','organizacion'),('departamento','telefono'))}),
+		('Información de la persona entrevistada', {'fields' : (('nombre','posicion'),('email','organizacion'),('departamento','telefono'),('fecha',))}),
 	]
 	inlines = [Pregunta_1_Inline, Pregunta_2_Inline, Pregunta_3_Inline, Pregunta_4_Inline, 
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,

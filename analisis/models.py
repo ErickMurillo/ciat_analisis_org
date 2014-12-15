@@ -13,6 +13,7 @@ class Entrevista(models.Model):
 	organizacion = models.ForeignKey(Organizacion)
 	departamento = models.ForeignKey(Departamento)
 	telefono = models.IntegerField()
+	fecha = models.DateField()
 	slug = models.SlugField(editable=False)
 
 	def __unicode__(self):
