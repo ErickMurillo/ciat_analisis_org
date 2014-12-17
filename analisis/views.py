@@ -48,6 +48,12 @@ class IndexView(ListView):
 			innocacion[inno.nombre] = contador_pregunta5
 		context['innovacion_contador']  = innocacion
 
+		tematica_innovacion = {}
+		for ti in Tema.objects.all():
+			contador_tematica_5a = Pregunta_5a.objects.filter(tema=ti).count()
+			tematica_innovacion[ti.tema] = contador_tematica_5a
+		context['tematica_innovacion_5a'] = tematica_innovacion
+
 		return context
 
 		
